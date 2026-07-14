@@ -70,7 +70,7 @@ h1{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;color
 .pull-quote{font-family:var(--serif);font-size:1.4rem;font-weight:300;font-style:italic;line-height:1.55;color:var(--ink);border-left:3px solid var(--yellow);padding-left:1.25rem;margin:1.75rem 0}
 .pull-quote cite{display:block;font-size:0.75rem;font-style:normal;color:var(--ink-soft);margin-top:6px;letter-spacing:0.04em}
 
-.char-strip{display:flex;overflow:hidden;border-radius:8px;width:fit-content;margin-top:1.75rem;border:1px solid rgba(212,160,23,0.25)}
+.char-strip{display:inline-flex;overflow:hidden;border-radius:8px;margin-top:1.75rem;border:1px solid rgba(212,160,23,0.25)}.char-strip-wrap{display:flex;justify-content:center;margin-top:1.75rem}
 .char-block{text-align:center;background:var(--dark);padding:0.9rem 1.3rem;border-right:1px solid rgba(212,160,23,0.12)}
 .char-block:last-child{border-right:none}
 .char-zh{font-size:2.2rem;color:var(--yellow);display:block;line-height:1}
@@ -129,6 +129,34 @@ footer{background:var(--dark);border-top:3px solid var(--yellow);padding:2.5rem 
 .foot-col a:hover{color:var(--yellow)}
 .foot-bottom{max-width:1100px;margin:1.5rem auto 0;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.28)}
 @media(max-width:640px){.foot-inner{grid-template-columns:1fr}}
+
+/* HAMBURGER MENU */
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{width:18px;height:2px;background:var(--ink);border-radius:1px;display:block;transition:all .2s}
+.mobile-menu{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(250,250,248,0.98);border-bottom:2px solid var(--yellow);box-shadow:0 4px 12px rgba(26,31,46,0.1);z-index:99}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:12px 1.5rem;font-size:14px;color:var(--ink-soft);text-decoration:none;border-bottom:0.5px solid var(--ink-faint);transition:background .15s}
+.mobile-menu a:hover{background:var(--ink-faint);color:var(--ink)}
+.mobile-menu a.active{color:var(--red);font-weight:500}
+.mobile-menu .nav-donate{background:var(--red);color:#fff!important;margin:10px 1.5rem;border-radius:6px;text-align:center;border-bottom:none}
+@media(max-width:640px){
+  nav{display:none}
+  .hamburger{display:flex}
+  .header-inner{position:relative}
+}
+
+/* Fix 2: Character strip on small screens */
+@media(max-width:380px){
+  .char-block{padding:0.65rem 0.85rem}
+  .char-zh{font-size:1.75rem}
+  .char-en{font-size:9px}
+}
+
+/* Fix 3: Footer spacing on mobile */
+@media(max-width:640px){
+  .foot-inner{grid-template-columns:1fr;gap:1.75rem}
+  .foot-col{padding-top:0.5rem;border-top:0.5px solid rgba(255,255,255,0.08)}
+}
 </style>
 </head>
 <body>
@@ -147,9 +175,20 @@ footer{background:var(--dark);border-top:3px solid var(--yellow);padding:2.5rem 
       <a href="about.html" class="active">About</a>
       <a href="programs.html">Programs</a>
       <a href="events.html">Events</a>
-      <a href="contact.html">Contact</a>
+      <a href="mailto:info@taichihuangglobal.org">Contact</a>
       <a href="donate.html" class="nav-donate">Donate</a>
     </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="programs.html">Programs</a>
+    <a href="events.html">Events</a>
+    <a href="mailto:info@taichihuangglobal.org">Contact</a>
+    <a href="donate.html" class="nav-donate">Donate</a>
   </div>
 </header>
 
@@ -175,11 +214,11 @@ footer{background:var(--dark);border-top:3px solid var(--yellow);padding:2.5rem 
         "Know others and you have wisdom. Know yourself and you have enlightenment."
         <cite>— Lao Tzu, Tao Te Ching</cite>
       </blockquote>
-      <div class="char-strip">
+      <div class="char-strip-wrap"><div class="char-strip">
         <div class="char-block"><span class="char-zh">黃</span><span class="char-en">Huang</span></div>
         <div class="char-block"><span class="char-zh">氏</span><span class="char-en">Style</span></div>
         <div class="char-block"><span class="char-zh">太</span><span class="char-en">Tai</span></div>
-        <div class="char-block"><span class="char-zh">極</span><span class="char-en">Chi</span></div>
+        <div class="char-block"><span class="char-zh">極</span><span class="char-en">Chi</span></div></div>
       </div>
     </div>
     <div>
@@ -310,13 +349,13 @@ footer{background:var(--dark);border-top:3px solid var(--yellow);padding:2.5rem 
       <a href="programs.html">Programs</a>
       <a href="events.html">Events</a>
       <a href="donate.html">Donate</a>
-      <a href="contact.html">Contact</a>
+      <a href="mailto:info@taichihuangglobal.org">Contact</a>
     </div>
     <div class="foot-col">
       <h4>Organization</h4>
       <a>501(c)(3) Nonprofit</a>
       <a>EIN: 41-2943994</a>
-     <!-- <a href="mailto:info@taichihuangglobal.org">info@taichihuangglobal.org</a> -->
+      <a href="mailto:info@taichihuangglobal.org">info@taichihuangglobal.org</a>
     </div>
   </div>
   <div class="foot-bottom">
@@ -335,6 +374,20 @@ function toggleBio(){
     ?'Show less <i class="ti ti-chevron-down"></i>'
     :'Read full biography <i class="ti ti-chevron-down"></i>';
 }
+</script>
+
+<script>
+function toggleMenu(){
+  const menu = document.getElementById('mobile-menu');
+  menu.classList.toggle('open');
+}
+// Close menu when clicking outside
+document.addEventListener('click', function(e){
+  const menu = document.getElementById('mobile-menu');
+  if(!e.target.closest('header')){
+    menu.classList.remove('open');
+  }
+});
 </script>
 </body>
 </html>
